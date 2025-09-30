@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아주 러닝크루(Ajou Learning Crew)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom font application and default styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fef3c7; /* 트랙 주변의 모래나 밝은 흙색 느낌 유지 */
+        }
+        /* Custom button style for emphasis */
+        .primary-btn {
+            /* 트랙 테마에 맞춰 더 짙은 블루, 둥근 모양 */
+            @apply inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-white transition duration-300 ease-in-out bg-blue-800 rounded-full shadow-lg hover:bg-blue-900 hover:shadow-xl transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-blue-400;
+        }
+        .secondary-btn {
+            /* 트랙 테마에 맞춰 더 짙은 블루 테두리, 둥근 모양 */
+            @apply inline-flex items-center justify-center px-8 py-3 text-lg font-bold text-blue-800 transition duration-300 ease-in-out bg-white border-2 border-blue-800 rounded-full shadow-md hover:bg-blue-50 focus:outline-none focus:ring-4 focus:ring-blue-100;
+        }
+        /* Style for the course cards - 점선 테두리를 추가하여 레인 느낌 부여 */
+        .course-card {
+            /* 점선 테두리 색상 블루로 변경 */
+            @apply bg-white p-6 rounded-2xl shadow-xl transition duration-300 ease-in-out hover:shadow-2xl border-4 border-dashed border-blue-300;
+        }
+        .header-section {
+            /* 트랙 색상 및 하단에 큰 곡선 (트랙 커브) */
+            background-color: #1e40af; /* Dark Blue (blue-800 approximation) */
+            @apply rounded-b-[50%] sm:rounded-b-[200px]; 
+            position: relative;
+        }
+        .section-title-border {
+             /* 트랙 주 색상과 맞춤 */
+             @apply border-b-4 border-blue-800 pb-2; 
+        }
+        /* 코스 열 간격을 동일하게 설정하기 위해 table-layout: fixed를 사용 */
+        .course-table {
+            table-layout: fixed;
+        }
+        /* Calendar specific styles */
+        .cal-day {
+            @apply h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center text-sm font-semibold rounded-lg;
+        }
+        /* 파란색 계열 하이라이터 스타일 */
+        .highlight {
+            @apply bg-blue-200 font-bold px-1 rounded;
+        }
+        /* 테이블 내부 텍스트 색상 통일 */
+        .course-table .text-red-500 {
+            color: inherit; /* 상위 요소의 텍스트 색상 (gray-800) 상속 */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header-section text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl sm:text-6xl font-extrabold mb-4 tracking-tight">
+                아주 러닝크루<br>
+                (Ajou Learning Crew)
+            </h1>
+            <p class="text-xl sm:text-2xl font-light opacity-90 max-w-3xl mx-auto">
+                긴 연휴를 성장의 기회로! 온라인 스터디로 작은 성취를 만들어가세요.
+            </p>
+            <!-- Call to Action Buttons: Apply rounded-full class -->
+            <div class="mt-10 space-y-4 sm:space-y-0 sm:space-x-6">
+                <!-- primary-btn 클래스에 rounded-full이 이미 포함되어 있습니다. -->
+                <a href="#apply-section" class="primary-btn">
+                    참여 신청하기
+                </a>
+                <!-- secondary-btn 클래스에 rounded-full이 이미 포함되어 있습니다. -->
+                <a href="#courses" class="secondary-btn">
+                    코스 자세히 보기
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+        <!-- 1. Introduction & Overview -->
+        <section id="overview" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-800 mb-6 section-title-border">아주 러닝크루란?</h2>
+            
+            <div class="text-xl text-gray-700 leading-relaxed space-y-3">
+                <p class="flex items-start">
+                    <span class="text-blue-500 mr-2 text-2xl">•</span>
+                    <span>아주 러닝크루는 긴 연휴 기간을 허비하지 않으며, 작은 성취를 가져가기 위한 온라인 스터디 인증 활동입니다. 익명으로 참여하고, 본인의 상황에 따라 워킹코스, 하프코스, 풀코스를 선택하여 참여할 수 있습니다.</span>
+                </p>
+                <p class="flex items-start">
+                    <span class="text-blue-500 mr-2 text-2xl">•</span>
+                    <span>아주 러닝크루에서는 <span class="highlight">러닝 페이스메이커 (Learning Pacemaker)</span>가 루틴 및 학습을 독려하고 관리합니다.</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- 2. Target & Schedule (Changed to Prose Style) -->
+        <section id="schedule" class="mb-20 space-y-10">
+            
+            <!-- Participation Target -->
+            <div class="course-card">
+                <h3 class="text-3xl font-bold text-blue-800 mb-4 border-b pb-2">✅ 참여 대상</h3>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    <span class="mr-2">1️⃣</span> 추석 연휴 기간 동안 <span class="highlight">루틴</span>을 잃고 싶지 않은 아주대학교 학생<br><span class="mr-2">2️⃣</span> 연휴 기간을 활용해 빡세게 <span class="highlight">중간고사</span>를 준비할 아주대학교 학생
+                </p>
+            </div>
+            
+            <!-- Activity Period (Calendar View) -->
+            <div class="course-card">
+                <h3 class="text-3xl font-bold text-blue-800 mb-4 border-b pb-2">⏰ 활동 기간</h3>
+
+                <!-- 텍스트 정보 추가 -->
+                <ul class="list-none text-gray-700 space-y-3 text-xl pl-0 mb-8">
+                    <li class="flex items-start">
+                        <span class="text-blue-500 mr-2 text-2xl">•</span>
+                        <span class="font-semibold text-gray-800">1차 활동 (추석 연휴):</span> 2025년 10월 3일 ~ 10월 12일
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-blue-500 mr-2 text-2xl">•</span>
+                        <span class="font-semibold text-gray-800">연장 활동 (희망자, 중간고사 대비):</span> 2025년 10월 12일 ~ 10월 19일
+                    </li>
+                </ul>
+                <!-- // 텍스트 정보 추가 끝 -->
+                
+                <div class="flex flex-col items-center p-4">
+                    <div class="text-3xl font-bold text-gray-800 mb-6">2025년 10월</div>
+                    
+                    <!-- Calendar Legend -->
+                    <div class="flex space-x-4 mb-6 text-sm">
+                        <div class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-blue-600 rounded-full mr-2"></span>
+                            <span class="text-gray-700">1차 활동 (추석 연휴)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="inline-block w-4 h-4 bg-blue-300 rounded-full mr-2"></span>
+                            <span class="text-gray-700">연장 활동 (중간고사 대비)</span>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Grid -->
+                    <div class="w-full max-w-lg">
+                        <div class="grid grid-cols-7 text-center font-bold text-sm text-gray-500 mb-2">
+                            <div class="text-red-500">일</div>
+                            <div>월</div>
+                            <div>화</div>
+                            <div>수</div>
+                            <div>목</div>
+                            <div>금</div>
+                            <div class="text-blue-500">토</div>
+                        </div>
+
+                        <div class="grid grid-cols-7 gap-1 text-center text-gray-800">
+                            <!-- Week 1: Starts Wednesday (Oct 1) -->
+                            <div class="cal-day"></div>
+                            <div class="cal-day"></div>
+                            <div class="cal-day"></div>
+                            <div class="cal-day">1</div>
+                            <div class="cal-day">2</div>
+                            
+                            <!-- 1차 활동 시작: 10/3 ~ 10/12 -->
+                            <div class="cal-day bg-blue-600 text-white shadow-md">3</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md">4</div>
+                            
+                            <!-- Week 2 -->
+                            <div class="cal-day bg-blue-600 text-white shadow-md text-red-100">5</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md">6</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md">7</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md">8</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md">9</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md">10</div>
+                            <div class="cal-day bg-blue-600 text-white shadow-md text-blue-100">11</div>
+                            
+                            <!-- Week 3: Oct 12 is End of Primary (1차) and Start of Extension (연장) -->
+                            <div class="cal-day bg-blue-600 text-white shadow-md text-red-100 border-2 border-blue-300">12</div>
+                            <!-- 연장 활동: 10/12 ~ 10/19 -->
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm">13</div>
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm">14</div>
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm">15</div>
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm">16</div>
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm">17</div>
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm text-blue-900">18</div>
+
+                            <!-- Week 4 -->
+                            <div class="cal-day bg-blue-300 text-blue-900 shadow-sm text-red-900">19</div>
+                            <div class="cal-day">20</div>
+                            <div class="cal-day">21</div>
+                            <div class="cal-day">22</div>
+                            <div class="cal-day">23</div>
+                            <div class="cal-day">24</div>
+                            <div class="cal-day">25</div>
+
+                            <!-- Week 5 -->
+                            <div class="cal-day text-red-500">26</div>
+                            <div class="cal-day">27</div>
+                            <div class="cal-day">28</div>
+                            <div class="cal-day">29</div>
+                            <div class="cal-day">30</div>
+                            <div class="cal-day">31</div>
+                            <div class="cal-day"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 수정된 OT 안내 텍스트 -->
+                <div class="mt-8 text-xl text-gray-700 leading-relaxed">
+                    <p class="flex items-start font-semibold text-gray-800">
+                        <span class="text-blue-500 mr-2 text-2xl">•</span>
+                        <span>참여 신청 이후 10월 3일 간단한 활동 안내 <span class="font-bold">자료</span>를 보내드릴 예정입니다.</span>
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Rewards -->
+            <div class="course-card">
+                <h3 class="text-3xl font-bold text-blue-800 mb-4 border-b pb-2">🏆 참여 리워드</h3>
+                <p class="text-xl text-gray-700 leading-relaxed">
+                    <span class="mr-2">1️⃣</span> 목표를 완수한 참가자에게는 공식적인 <span class="highlight">수료증</span> 증정<br><span class="mr-2">2️⃣</span> 커리어 설계를 위한 <span class="highlight">경험 정리</span> 서비스를 제공<br><span class="mr-2">3️⃣</span> 중간고사 애프터 <span class="highlight">파티</span>(네트워킹, 희망자)
+                </p>
+            </div>
+        </section>
+
+        <!-- 3. Course Details Table -->
+        <section id="courses" class="mb-20">
+            <h2 class="text-4xl font-bold text-gray-800 mb-8 section-title-border">코스별 참여 안내</h2>
+
+            <div class="table-container shadow-2xl rounded-2xl overflow-hidden">
+                <table class="min-w-full divide-y divide-gray-200 course-table">
+                    <!-- 열 너비 지정을 위한 colgroup 추가 및 균등 배분 -->
+                    <colgroup>
+                        <col style="width: 15%;"> <!-- 구분 열 -->
+                        <col style="width: 28.33%;"> <!-- 워킹코스 (85% / 3) -->
+                        <col style="width: 28.33%;"> <!-- 하프코스 (85% / 3) -->
+                        <col style="width: 28.34%;"> <!-- 풀코스 (85% / 3, 오차 보정) -->
+                    </colgroup>
+                    
+                    <thead class="bg-blue-800 text-white"> <!-- 트랙 주 색상과 맞춤 (파란색) -->
+                        <tr>
+                            <th scope="col" class="px-3 py-4 text-center text-sm font-bold uppercase tracking-wider">구분</th>
+                            <th scope="col" class="px-3 py-4 text-center text-sm font-bold uppercase tracking-wider">워킹코스</th>
+                            <th scope="col" class="px-3 py-4 text-center text-sm font-bold uppercase tracking-wider">하프코스</th>
+                            <th scope="col" class="px-3 py-4 text-center text-sm font-bold uppercase tracking-wider">풀코스</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200 text-gray-800">
+                        <!-- 참여 대상 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-3 py-4 font-bold text-center bg-gray-50 whitespace-nowrap text-gray-800">참여 대상</td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                추석 연휴기간 <span class="highlight">루틴</span>을 만들거나 잃지 않으려는 자
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                추석 연휴도 즐기며 <span class="highlight">중간고사</span> 대비도 병행하고자 하는 자
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                <span class="highlight">중간고사</span> 시험공부를 빡세게 진행하고자 하는 자
+                            </td>
+                        </tr>
+                        <!-- 활동 예시 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-3 py-4 font-bold text-center bg-gray-50 whitespace-nowrap text-gray-800">활동 예시</td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                아침 기상<br>아침 헬스 및 러닝 등<br>(일상 루틴만 작성 가능)
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                아침 기상<br>경영정보시스템 2주차까지 요약 등<br>(공부 및 일상 루틴 작성 가능)
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                경영정보시스템 2주차까지 요약<br>노사관계 서술형 답변 작성 등<br>(공부와 관련된 루틴만 작성 가능)
+                            </td>
+                        </tr>
+                        <!-- 수료 조건 (복구됨) -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-3 py-4 font-bold text-center bg-gray-50 whitespace-nowrap text-gray-800">수료 조건</td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                활동 기간 중 40%(4일) 참석<br> 목표 루틴 참석일 75% 달성
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                활동 기간 중 40%(4일) 참석<br> 목표 루틴 참석일 100% 달성
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                활동 기간 중 50%(5일) 참석<br> 목표 공부량 참석일 100% 달성
+                            </td>
+                        </tr>
+                        <!-- 인증 및 활용 -->
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-3 py-4 font-bold text-center bg-gray-50 whitespace-nowrap text-gray-800">인증 및 활용</td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                카카오톡 오픈채팅방 (짤을 통한 인증)
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                카카오톡 오픈채팅방 (짤 인증, To do list 작성)
+                            </td>
+                            <td class="px-3 py-4 text-sm text-gray-800">
+                                카카오톡 (짤 인증, To do list 작성)<br> 열품타 (공부시간 기록) 활용
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </section>
+
+        <!-- 4. Application Section (CTA) -->
+        <section id="apply-section" class="mb-20 bg-blue-800 p-10 sm:p-16 rounded-[96px] text-center shadow-2xl"> <!-- rounded-[96px]로 부드러운 곡선 유지 -->
+            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">지금 바로 아주 러닝크루에 참여하세요!</h2>
+            <p class="text-xl text-blue-300 mb-10">
+                연휴 기간 동안 나만의 루틴을 만들고 성취감을 경험할 수 있는 기회입니다.
+            </p>
+            
+            <div class="space-y-4 sm:space-y-0 flex justify-center">
+                <a id="apply-button" href="https://forms.gle/k3wgaQcwAK9a3Qgp6" target="_blank" class="primary-btn bg-white text-blue-800 hover:bg-blue-100 border-2 border-white">
+                    🏃 구글 폼으로 신청하기
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm">
+            <p>&copy; 2025 Ajou University Student Activity. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
